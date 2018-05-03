@@ -41,6 +41,8 @@ def harmonize_credentials(
     :return str: cromwell username
     :return str: cromwell password
     """
+    if secrets_file is None and 'CROMWELL_SECRETS' in os.environ:
+        secrets_file = os.environ['CROMWELL_SECRETS']
     if cromwell_username is None or cromwell_password is None or cromwell_url is None:
         if secrets_file is None:
             raise ValueError('One form of cromwell authentication must be provided, please pass '
