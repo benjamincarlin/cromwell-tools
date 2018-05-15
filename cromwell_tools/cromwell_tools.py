@@ -179,7 +179,7 @@ def start_workflow(
     if caas_key and collection_name:
         files['collectionName'] = collection_name
     if workflow_on_hold == 'true':
-        files['workflow_on_hold'] = 'true'
+        files['workflowOnHold'] = 'true'
 
     auth, headers = _get_auth_credentials(cromwell_user=user, cromwell_password=password, caas_key=caas_key)
     response = requests.post(url, files=files, auth=auth, headers=headers)
