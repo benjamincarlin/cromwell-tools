@@ -131,10 +131,10 @@ def wait_until_workflow_completes(
             time.sleep(poll_interval_seconds)
 
 
-@retry(reraise=True, wait=wait_exponential(multiplier=1, max=10), stop=stop_after_delay(20))
+#@retry(reraise=True, wait=wait_exponential(multiplier=1, max=10), stop=stop_after_delay(20))
 def start_workflow(
         wdl_file, inputs_file, url, options_file=None, inputs_file2=None, zip_file=None, user=None,
-        password=None, caas_key=None, collection_name=None, label=None, validate_labels=True):
+        password=None, caas_key=None, collection_name=None, label=None, validate_labels=True, workflowOnHold=False):
     """
     Use HTTP POST to start workflow in Cromwell and retry with exponentially increasing wait times between requests
     if there are any failures. View statistics about the retries with `start_workflow.retry.statistics`.
@@ -178,6 +178,8 @@ def start_workflow(
         files['labels'] = label
     if caas_key and collection_name:
         files['collectionName'] = collection_name
+    if workflowOnHold:
+        files['workflowOnHold'] = True
 
     auth, headers = _get_auth_credentials(cromwell_user=user, cromwell_password=password, caas_key=caas_key)
     response = requests.post(url, files=files, auth=auth, headers=headers)
