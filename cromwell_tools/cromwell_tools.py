@@ -178,7 +178,7 @@ def start_workflow(
         files['labels'] = label
     if caas_key and collection_name:
         files['collectionName'] = collection_name
-    if workflow_on_hold == 'true'
+    if workflow_on_hold == 'true':
         files['workflow_on_hold'] = 'true'
 
     auth, headers = _get_auth_credentials(cromwell_user=user, cromwell_password=password, caas_key=caas_key)
